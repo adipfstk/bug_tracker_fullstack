@@ -1,0 +1,26 @@
+<mat-drawer-container class="container">
+  <mat-drawer mode="side" opened class="side">
+    <div class="side-top">
+      <img src="assets/logo.svg" class="smth" />
+      <h1>Bug Tracker</h1>
+    </div>
+    <div class="side-content">
+      <div class="button-container">
+        <app-dash-button
+          *ngFor="let item of this.buttonsData | keyvalue"
+          [buttonData]="[item.key, item.value]"
+        ></app-dash-button>
+        <button mat-raised-button>Log out</button>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="main-container">
+    <app-dash-content></app-dash-content>
+    <div class="statistics">
+      <app-dash-stats
+        *ngFor="let statData of this.chartData"
+        [stat]="statData"
+      ></app-dash-stats>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
