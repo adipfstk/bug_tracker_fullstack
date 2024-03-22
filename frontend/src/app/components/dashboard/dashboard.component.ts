@@ -1,12 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  ChartErrorEvent,
-  ChartMouseLeaveEvent,
-  ChartMouseOverEvent,
-  ChartSelectionChangedEvent,
   ChartType,
-  Column,
-  GoogleChartComponent
 } from 'angular-google-charts';
 
 @Component({
@@ -14,7 +8,7 @@ import {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   buttonsData!:Map<string, string>;
 
   chartData:any[] = [
@@ -86,5 +80,8 @@ export class DashboardComponent {
         title: "Da"
       }
     ]
+  }
+  ngOnInit(): void {
+    
   }
 }

@@ -1,30 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-];
-
+import { PageEvent } from '@angular/material/paginator';
+import ProjectService from '../../../services/project.sevice';
+import { Project } from '../../../models/project.model';
 
 @Component({
   selector: 'app-dash-content',
   templateUrl: './dash-content.component.html',
-  styleUrl: './dash-content.component.css'
+  styleUrl: './dash-content.component.css',
 })
-export class DashContentComponent {
+export class DashContentComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'name', 'description'];
+  fetchedData!: Project[];
+  metaData!: any;
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  constructor(private projectService: ProjectService) {}
 
+  ngOnInit(): void {
+    this.fetchProjects();
+  }
+
+  fetchProjects(page: number = 0, size: number = 5): void {
+    this.projectService.getProjects(page, size).subscribe({
+      next: (response:any) => {
+        this.fetchedData = response.content;
+        if (!this.metaData) {
+          this.updateMetaData(
+            response.pageable,
+            response.totalPages,
+            response.totalElements
+          );
+        }
+      },
+      error: () => {
+        window.alert('Cannot fetch data from API');
+      },
+    });
+  }
+
+  onChangePage(event: PageEvent): void {
+    this.fetchProjects(event.pageIndex, event.pageSize);
+  }
+
+  private updateMetaData(
+    pageable: any,
+    totalPages: number,
+    totalElements: number
+  ): void {
+    this.metaData = {
+      pageSize: pageable.pageSize,
+      pageNumber: pageable.pageNumber,
+      totalPages: totalPages,
+      totalElements: totalElements,
+    };
+  }
 }
