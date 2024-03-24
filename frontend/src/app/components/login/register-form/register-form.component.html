@@ -71,7 +71,9 @@
       >
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
-      <mat-hint *ngIf="fieldValidity('password')" class="error">At least 5 characters long + uppercase </mat-hint>
+      <mat-hint *ngIf="fieldValidity('password')" class="error">
+        <p>At least 5 characters, one uppercase, one and special character</p>
+      </mat-hint>
     </mat-form-field>
   </div>
 

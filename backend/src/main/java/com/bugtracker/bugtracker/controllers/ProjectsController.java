@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "http://localhost:4200")
-class Controller {
+class ProjectsController {
     private final ProjectService _projectService;
     @GetMapping("/items")
     public ResponseEntity<Page<Project>> getProjects(@RequestParam(required = false, defaultValue = "0") int page,
