@@ -9,7 +9,9 @@
         formControlName="firstname"
       />
       <mat-icon matSuffix>person</mat-icon>
-      <mat-hint *ngIf="fieldValidity('firstname')" class="error">3-30 character length</mat-hint>
+      <mat-hint *ngIf="fieldValidity('firstname')" class="error">
+        3-30 character length</mat-hint
+      >
     </mat-form-field>
 
     <mat-form-field class="row-item">
@@ -21,7 +23,9 @@
         formControlName="lastname"
       />
       <mat-icon matSuffix>person</mat-icon>
-      <mat-hint *ngIf="fieldValidity('lastname')" class="error">3-30 character length</mat-hint>
+      <mat-hint *ngIf="fieldValidity('lastname')" class="error">
+        3-30 character length
+        </mat-hint>
     </mat-form-field>
   </div>
 
@@ -36,7 +40,9 @@
         formControlName="email"
       />
       <mat-icon matSuffix>email</mat-icon>
-      <mat-hint *ngIf="fieldValidity('email')" class="error">The entered email is not valid</mat-hint>
+      <mat-hint *ngIf="fieldValidity('email')" class="error"
+        >The entered email is not valid
+      </mat-hint>
     </mat-form-field>
   </div>
 
@@ -72,7 +78,7 @@
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
       <mat-hint *ngIf="fieldValidity('password')" class="error">
-        <p>At least 5 characters, one uppercase, one and special character</p>
+        At least 5 characters, one uppercase, one and special character
       </mat-hint>
     </mat-form-field>
   </div>

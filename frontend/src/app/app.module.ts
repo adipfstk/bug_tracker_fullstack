@@ -26,6 +26,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { UserGuard } from './guards/user.guard';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -57,7 +59,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     GoogleChartsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     provideAnimationsAsync(),
@@ -66,6 +68,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
       useClass: AuthInterceptor,
       multi: true,
     },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    UserGuard
+    
   ],
   bootstrap: [AppComponent],
 })

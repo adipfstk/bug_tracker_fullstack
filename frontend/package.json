@@ -23,6 +23,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@swimlane/ngx-charts": "^20.5.0",
     "angular-google-charts": "^2.2.3",
+    "angular-jwt": "^0.1.11",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

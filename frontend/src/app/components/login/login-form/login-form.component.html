@@ -1,13 +1,13 @@
-<form class="form">
+<form class="form" (submit)="this.submitHandler()" [formGroup]="this.submitData">
   <div class="row-block">
     <mat-form-field class="block-field">
-      <mat-label>Email</mat-label>
-      <input type="mail" matInput placeholder="Enter your Lastname" />
-      <mat-icon matSuffix>email</mat-icon>
+      <mat-label>Username</mat-label>
+      <input type="text" matInput placeholder="Enter your username" formControlName="username" />
+      <mat-icon matSuffix>person</mat-icon>
     </mat-form-field>
 
     <mat-form-field class="block-field">
-      <input matInput [type]="hide ? 'password' : 'text'" />
+      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" formControlName="password"/>
       <button
         mat-icon-button
         matSuffix

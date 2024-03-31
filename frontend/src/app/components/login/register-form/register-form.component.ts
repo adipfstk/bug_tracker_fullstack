@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register-form',
@@ -29,6 +30,7 @@ export class RegisterFormComponent {
     ]),
     password: new FormControl('', [
       Validators.required,
+      Validators.minLength(5),
     ]),
   });
 
@@ -36,14 +38,22 @@ export class RegisterFormComponent {
     return !this.inputs.get(field)?.valid && this.inputs.get(field)?.touched;
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private _authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   submitHandler() {
-    if (this.inputs.status == 'VALID') {
-      this.authService
-        .register(this.inputs.value)
-        .subscribe(() => console.log(this.inputs));
-    }
-    return null;
+    localStorage.clear()
+    return this.inputs.status == 'VALID'
+      ? this._authService
+          .register(this.inputs.value)
+          .subscribe(() =>
+            this._snackBar.open(
+              'You succesfully created a new account',
+              'Close'
+            )
+          )
+      : null;
   }
 }

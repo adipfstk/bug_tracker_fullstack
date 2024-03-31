@@ -1,9 +1,7 @@
-
-
 .container {
   height: 100vh;
-  background-image: url("../../../assets/wavy.svg");
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
 }
 
 .side {
@@ -11,21 +9,41 @@
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
-.side-top {
-  display: flex;
-  flex-direction: row; /* Align items in a row */
-  justify-content: center; /* Center items horizontally */
-  align-items: flex-start;
-  padding-top: 30px;
+.main-column {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-row-gap: 2rem; 
+  row-gap: 2rem;
 }
 
-.side-top h1 {
-  padding-left: 10px;
+.side-top {
+  display: flex;                
+  flex-direction: column;       
+  justify-content: center;      
+  align-items: center;          
+  padding:50px;   
 }
 
 .side-content {
   display: flex;
   flex-direction: column;
+}
+
+.side-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  background-image: url('/assets/logo.svg');
+}
+
+.text {
+  padding-top: 10px;
 }
 
 .button-container {
@@ -36,15 +54,14 @@
   margin-top: 45px;
 }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 40px;
+.main-container { 
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-row-gap: 2rem; /* Will be used instead by browsers that do not support `row-gap` */
+  row-gap: 2rem;               
 }
 
-.statistics {
+.stats-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -52,3 +69,9 @@
   column-gap: 30px;
 }
 
+.dash-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
