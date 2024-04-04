@@ -1,36 +1,8 @@
 <mat-drawer-container class="container">
   <mat-drawer mode="side" opened class="side">
-    <div class="main-column">
-      <div class="side-top">
-        <div class = "logo">
-        </div>
-        <div class = "text">
-          <h1>Bug Tracker</h1>
-        </div>
-      </div>
-      <div class="side-content">
-        <div class="button-container" *ngIf="this.buttonOptions$ | async as buttonOptions">
-          <app-dash-button
-          *ngFor="let item of this.buttonOptions | keyvalue"
-          [buttonData]="[item.key, item.value]"
-        ></app-dash-button>
-        </div>
-      </div>
-      <div class="side-bottom">
-        <button mat-raised-button color="warn">Log out</button>
-      </div>
-    </div>
+    <app-dashboard-nav [buttonOptions$]="buttonOptions$"></app-dashboard-nav>
   </mat-drawer>
   <mat-drawer-content class="main-container">
-      <div class="dash-container">
-        <app-dash-content></app-dash-content>
-      </div>
-      <div class="stats-container">
-        <app-dash-stats
-          *ngFor="let statData of this.chartData"
-          [stat]="statData"
-        ></app-dash-stats>
-      </div>
-
+    <app-dashboard-home [chartData]="this.chartData"></app-dashboard-home>
   </mat-drawer-content>
 </mat-drawer-container>

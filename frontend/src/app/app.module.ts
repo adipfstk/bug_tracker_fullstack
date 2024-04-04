@@ -17,19 +17,23 @@ import { RegisterFormComponent } from './components/login/register-form/register
 import { MatButtonModule } from '@angular/material/button';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DashButtonComponent } from './components/dashboard/dash-button/dash-button.component';
-import { DashContentComponent } from './components/dashboard/dash-content/dash-content.component';
+import { DashButtonComponent } from './components/dashboard/dashboard-nav/dash-button/dash-button.component';
+import { DashContentComponent } from './components/dashboard/dashboard-home/dash-content/dash-content.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { DashStatsComponent } from './components/dashboard/dash-stats/dash-stats.component';
+import { DashStatsComponent } from './components/dashboard/dashboard-home/dash-stats/dash-stats.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UserGuard } from './guards/user.guard';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
-
-
+import { DashboardNavComponent } from './components/dashboard/dashboard-nav/dashboard-nav.component';
+import { DashboardHomeComponent } from './components/dashboard/dashboard-home/dashboard-home.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ButtonComponent } from './components/dashboard/dashboard-home/dash-content/button/button.component';
+import { DashDialogComponent } from './components/dashboard/dashboard-home/dash-content/dash-dialog/dash-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +44,10 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
     DashButtonComponent,
     DashContentComponent,
     DashStatsComponent,
+    DashboardNavComponent,
+    DashboardHomeComponent,
+    ButtonComponent,
+    DashDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +68,8 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [
     provideAnimationsAsync(),

@@ -1,0 +1,22 @@
+<div class="main-column">
+  <div class="side-top">
+    <div class="logo"></div>
+    <div class="text">
+      <h2>Bug Tracker</h2>
+    </div>
+  </div>
+  <div class="side-content">
+    <div
+      class="button-container"
+      *ngIf="this.buttonOptions$ | async as buttonOptions"
+    >
+      <app-dash-button
+        *ngFor="let item of this.buttonOptions | keyvalue"
+        [buttonData]="[item.key, item.value]"
+      ></app-dash-button>
+    </div>
+  </div>
+  <div class="side-bottom">
+    <button mat-raised-button color="warn" (click)="this.onLogout()">Log out</button>
+  </div>
+</div>

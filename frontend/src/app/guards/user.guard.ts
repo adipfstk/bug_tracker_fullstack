@@ -11,10 +11,9 @@ export class UserGuard implements CanActivate {
 
   canActivate(
   ): boolean {
-    if (this._jwtHelper.isTokenExpired(localStorage.getItem('authToken'))) {
-      this._router.navigate(['/']);
-      return false;
+    if (!this._jwtHelper.isTokenExpired(localStorage.getItem('authToken'))) {
+      return true;
     }
-    return true;
+    return false;
   }
 } 

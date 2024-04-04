@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PageEvent } from '@angular/material/paginator';
-import ProjectService from '../../../services/project.sevice';
-import { Project } from '../../../models/project.model';
+import ProjectService from '../../../../services/project.sevice';
+import { Project } from '../../../../models/project.model';
 
 @Component({
-  selector: 'app-dash-content',
+  selector: 'app-dash-con',
   templateUrl: './dash-content.component.html',
   styleUrl: './dash-content.component.css',
 })
