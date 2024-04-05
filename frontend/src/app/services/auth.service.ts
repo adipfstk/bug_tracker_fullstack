@@ -1,10 +1,9 @@
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import User from '../models/user.model';
-import { Login } from '../models/login.model';
-import { environment } from '../../environments/environment.development';
-import { DataService } from './data.service';
+import {Login} from '../models/login.model';
+import {environment} from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component} from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register-form',

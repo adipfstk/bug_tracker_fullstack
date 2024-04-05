@@ -1,13 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {
-  ChartErrorEvent,
-  ChartMouseLeaveEvent,
-  ChartMouseOverEvent,
-  ChartSelectionChangedEvent,
-  ChartType,
-  Column,
-  GoogleChartComponent
-} from 'angular-google-charts';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-dash-stats',

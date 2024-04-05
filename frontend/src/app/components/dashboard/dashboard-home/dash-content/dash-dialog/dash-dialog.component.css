@@ -1,0 +1,26 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.form-content {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.scrollable-list {
+    overflow-y: auto;
+    height: min-content;
+}
+
+.submit-center {
+    display: flex;
+    justify-content: center;
+}

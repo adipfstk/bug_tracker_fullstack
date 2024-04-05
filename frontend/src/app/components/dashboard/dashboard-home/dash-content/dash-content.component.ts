@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PageEvent } from '@angular/material/paginator';
-import ProjectService from '../../../../services/project.sevice';
+import { ProjectService } from '../../../../services/project.service';
 import { Project } from '../../../../models/project.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DashDialogComponent } from './dash-dialog/dash-dialog.component';
 
 @Component({
   selector: 'app-dash-con',
@@ -14,15 +16,25 @@ export class DashContentComponent implements OnInit {
   fetchedData!: Project[];
   metaData!: any;
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private _projectService: ProjectService,
+    private _dialog: MatDialog,
+  ) {}
+
+  openDialog() {
+    const dialogRef = this._dialog.open(DashDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
   ngOnInit(): void {
     this.fetchProjects();
   }
 
   fetchProjects(page: number = 0, size: number = 5): void {
-    this.projectService.getProjects(page, size).subscribe({
-      next: (response:any) => {
+    this._projectService.getRealTimeProjects(page, size).subscribe({
+      next: (response: any) => {
         this.fetchedData = response.content;
         if (!this.metaData) {
           this.updateMetaData(

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { DataService } from '../../../services/data.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {DataService} from '../../../services/data.service';
 
 @Component({
   selector: 'app-login-form',
@@ -26,11 +26,15 @@ export class LoginFormComponent implements OnInit {
   });
 
   submitHandler() {
-    this._authenticationService.login(this.submitData.value).subscribe(
-      (authToken) => {
-        localStorage.setItem("authToken", authToken)
-        this._router.navigate(['/manage'])
-      },
-    );
+    this._authenticationService
+      .login(this.submitData.value)
+      .subscribe((authToken) => {
+        localStorage.setItem('authToken', authToken);
+        const token = localStorage.getItem('authToken');
+        if (token != null) {
+          this._dataService.updateMenu(token);
+        }
+        this._router.navigate(['/manage']);
+      });
   }
 }

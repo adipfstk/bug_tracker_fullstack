@@ -1,13 +1,11 @@
 <mat-card class="data">
-
-
   <mat-card-content>
     <div class="top">
       <div class="title">
         <h2>Projects</h2>
       </div>
       <div>
-        <button mat-raised-button class="add-button">Add Proj</button>
+        <button mat-raised-button class="add-button" (click)="this.openDialog()">Add Proj</button>
       </div>
     </div>
     <table mat-table [dataSource]="this.fetchedData">
