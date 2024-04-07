@@ -1,2 +1,9 @@
-package com.bugtracker.bugtracker.services;public interface TicketService {
+package com.bugtracker.bugtracker.services;
+
+import com.bugtracker.bugtracker.dto.TicketDto;
+
+public interface TicketService {
+
+    TicketDto addTicket(TicketDto ticket);
+
 }

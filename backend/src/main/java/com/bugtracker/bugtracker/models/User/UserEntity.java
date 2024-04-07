@@ -1,6 +1,6 @@
-package com.bugtracker.bugtracker.models;
+package com.bugtracker.bugtracker.models.user;
 
-import jakarta.annotation.Nullable;
+import com.bugtracker.bugtracker.models.project.Project;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,13 +20,18 @@ public class UserEntity {
     private String firstname;
     private String lastname;
     private String username;
-    @Column(unique = true)
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
     @ManyToOne
-    private Project project;
-    @OneToMany
-    Ticket ticket;
+    Project project;
+    public UserEntity(long id, String firstname, String lastname, String username, String email, String password) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }

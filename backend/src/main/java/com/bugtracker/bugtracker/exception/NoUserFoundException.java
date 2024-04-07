@@ -1,2 +1,7 @@
-package com.bugtracker.bugtracker.exception;public class NoUserFoundException {
+package com.bugtracker.bugtracker.exception;
+
+public class NoUserFoundException extends RuntimeException {
+    public NoUserFoundException(String message) {
+        super(message);
+    }
 }

@@ -22,6 +22,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 login.getPassword()
         );
         var token = authenticationManager.authenticate(authentication);
-        return this.jwtUtil.generateToken(login.getUsername());
+        return this.jwtUtil.generateToken(token.getName(), token.getAuthorities());
     }
 }
