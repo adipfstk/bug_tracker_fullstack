@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { ChartType } from 'angular-google-charts';
 
 @Component({
   selector: 'app-dash-stats',
@@ -6,11 +7,11 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrl: './dash-stats.component.css'
 })
 export class DashStatsComponent implements OnInit {
-  ngOnInit(): void {
-    console.log(this.stat)
-  }
-  @Input()
-  stat!:any;
 
+  @Input()
+  stat!: any;
+  ngOnInit(): void {
+
+  }
 
 }

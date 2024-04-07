@@ -1,0 +1,26 @@
+.nav-buttons {
+    width: 200px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 0.5fr;
+    justify-content: center;
+    align-items: center;
+    border: .5px solid rgba(0, 0, 0, 0.107);
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    height: 40px;
+    font-weight: bold;
+    
+}
+
+.nav-buttons:hover {
+    background-color: rgb(243, 243, 243);
+    cursor: pointer;
+    transition-property: background-color; 
+    transition-duration: 0.3s; 
+}
+
+.text-space {
+    text-align: left;
+}
+

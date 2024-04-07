@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType } from 'angular-google-charts';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 
 enum UserRoles {
   USER,
-  DEVELOPER,
-  TESTER,
   ADMIN,
 }
 
@@ -23,12 +20,7 @@ export class DashboardComponent implements OnInit {
   buttonOptions$: Observable<Map<string, string>> =
     this.buttonOptions.asObservable();
 
-  chartData: any[];
-
   constructor(private _dataService: DataService, private _router: Router) {
-    this.chartData = Array.from({ length: 3 }, () =>
-      this.getDefaultChartData()
-    );
   }
 
   ngOnInit(): void {
@@ -52,27 +44,6 @@ export class DashboardComponent implements OnInit {
         );
       }
     });
-  }
-
-  private getDefaultChartData(): any {
-    return {
-      title: 'Changing Chart',
-      type: ChartType.PieChart,
-      data: [
-        ['Copper', 8.94],
-        ['Silver', 10.49],
-        ['Gold', 19.3],
-        ['Platinum', 21.45],
-      ],
-      columns: ['Element', 'Density'],
-      options: {
-        animation: {
-          duration: 250,
-          easing: 'ease-in-out',
-          startup: true,
-        },
-      },
-    };
   }
 
 }

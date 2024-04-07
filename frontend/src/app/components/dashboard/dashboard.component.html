@@ -3,6 +3,6 @@
     <app-dashboard-nav [buttonOptions$]="buttonOptions$"></app-dashboard-nav>
   </mat-drawer>
   <mat-drawer-content class="main-container">
-    <app-dashboard-home [chartData]="this.chartData"></app-dashboard-home>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

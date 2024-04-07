@@ -34,7 +34,7 @@ export class LoginFormComponent implements OnInit {
         if (token != null) {
           this._dataService.updateMenu(token);
         }
-        this._router.navigate(['/manage']);
+        this._router.navigate(['/dashboard']);
       });
   }
 }

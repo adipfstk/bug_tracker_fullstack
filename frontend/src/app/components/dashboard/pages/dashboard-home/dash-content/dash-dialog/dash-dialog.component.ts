@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../../services/user.service';
-import { UserDto } from '../../../../../models/userDTO.model';
+
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from '../../../../../services/project.service';
-import { Router } from '@angular/router';
+import {UserService} from "../../../../../../services/user.service";
+import {ProjectService} from "../../../../../../services/project.service";
+
+
 
 @Component({
   selector: 'app-dash-dialog',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './dash-dialog.component.css',
 })
 export class DashDialogComponent implements OnInit {
-  users!: UserDto[];
+  users!: any;
 
   formData: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -21,8 +22,7 @@ export class DashDialogComponent implements OnInit {
 
   constructor(
     private _userService: UserService,
-    private _projectService: ProjectService, 
-    private _router : Router
+    private _projectService: ProjectService,
   ) {}
 
   ngOnInit(): void {

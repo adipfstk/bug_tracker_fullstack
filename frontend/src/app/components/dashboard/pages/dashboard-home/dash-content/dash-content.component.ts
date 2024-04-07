@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { PageEvent } from '@angular/material/paginator';
-import { ProjectService } from '../../../../services/project.service';
-import { Project } from '../../../../models/project.model';
-import { MatDialog } from '@angular/material/dialog';
-import { DashDialogComponent } from './dash-dialog/dash-dialog.component';
+import {PageEvent} from '@angular/material/paginator';
+
+import {MatDialog} from '@angular/material/dialog';
+import {DashDialogComponent} from './dash-dialog/dash-dialog.component';
+import {ProjectService} from "../../../../../services/project.service";
+import {Project} from "../../../../../models/project.model";
 
 @Component({
   selector: 'app-dash-con',
@@ -19,7 +20,8 @@ export class DashContentComponent implements OnInit {
   constructor(
     private _projectService: ProjectService,
     private _dialog: MatDialog,
-  ) {}
+  ) {
+  }
 
   openDialog() {
     const dialogRef = this._dialog.open(DashDialogComponent);

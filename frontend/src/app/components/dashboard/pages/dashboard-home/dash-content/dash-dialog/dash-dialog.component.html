@@ -27,10 +27,10 @@
       #selectedUsers
       class="scrollable-list"
       formControlName="usernames"
-      
+
     >
       <mat-list-option
-        *ngFor="let user of users"
+        *ngFor="let user of this.users"
         [value]="user.username"
         multiple
       >

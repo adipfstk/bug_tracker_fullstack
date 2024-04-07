@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class ProjectService {
-  private apiControllerUrl = `${environment.apiUrl}/items`;
+  
 
   refreshData$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(private _httpClient: HttpClient, private _router: Router) {}
@@ -18,7 +18,7 @@ export class ProjectService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-    return this._httpClient.get<any>(this.apiControllerUrl, { params });
+    return this._httpClient.get<any>(`${environment.apiUrl}/projects`, { params });
   }
 
   getRealTimeProjects(page: number = 0, size: number = 5) {
