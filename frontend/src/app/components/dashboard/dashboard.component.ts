@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
     this._dataService.data$.subscribe((next) => {
       const role = next.roles['authority'];
       if (role === UserRoles[UserRoles.USER]) {
-        console.log(role);
         this.buttonOptions.next(
           new Map<string, string>([
             ['desktop_windows', 'Dashboard'],

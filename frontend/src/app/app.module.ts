@@ -32,17 +32,16 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatListModule} from '@angular/material/list';
 import {DashButtonComponent} from "./components/dashboard/core/dashboard-nav/dash-button/dash-button.component";
-import {DashContentComponent} from "./components/dashboard/pages/dashboard-home/dash-content/dash-content.component";
-import {DashStatsComponent} from "./components/dashboard/pages/dashboard-home/dash-stats/dash-stats.component";
 import {DashboardNavComponent} from "./components/dashboard/core/dashboard-nav/dashboard-nav.component";
 import {DashboardHomeComponent} from "./components/dashboard/pages/dashboard-home/dashboard-home.component";
-import {ButtonComponent} from "./components/dashboard/pages/dashboard-home/dash-content/button/button.component";
-import {
-  DashDialogComponent
-} from "./components/dashboard/pages/dashboard-home/dash-content/dash-dialog/dash-dialog.component";
+
 import {DashboardTicketsComponent} from "./components/dashboard/pages/dashboard-tickets/dashboard-tickets.component";
 import {DashboardProjectComponent} from "./components/dashboard/pages/dashboard-project/dashboard-project.component";
-
+import { DashContentComponent } from './components/dashboard/core/dash-content/dash-content.component';
+import { ButtonComponent } from './components/dashboard/core/dash-content/button/button.component';
+import { DashDialogComponent } from './components/dashboard/core/dash-content/dash-dialog/dash-dialog.component';
+import { DashStatsComponent } from './components/dashboard/pages/dashboard-home/dash-stats/dash-stats.component';
+import { DashTableComponent } from './components/dashboard/core/dash-content/dash-table/dash-table.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +59,7 @@ import {DashboardProjectComponent} from "./components/dashboard/pages/dashboard-
     DashDialogComponent,
     DashboardTicketsComponent,
     DashboardProjectComponent,
+    DashTableComponent,
   ],
   imports: [
     BrowserModule,

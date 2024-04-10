@@ -1,0 +1,25 @@
+<mat-card class="content">
+  <mat-card-content>
+    <div class="top">
+      <div class="title">
+        <h2>{{ title }}</h2>
+      </div>
+
+      <div>
+        <button ngClass="green"
+          mat-raised-button
+          class="add-button"
+          (click)="this.openDialog()"
+        >
+          Add Proj
+        </button>
+      </div>
+    </div>
+
+    <div class="page-data">
+      <app-dash-table [dataSource]="this.dataSource$"></app-dash-table>
+    </div>
+
+
+  </mat-card-content>
+</mat-card>

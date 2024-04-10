@@ -1,0 +1,23 @@
+.data {
+  width: max-content;
+}
+
+.add-button {
+    background-color:rgb(11, 211, 24);
+    font-size: small;
+    color:white;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 16fr 1fr;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.green {
+  min-width: 100px;
+}
+
+
