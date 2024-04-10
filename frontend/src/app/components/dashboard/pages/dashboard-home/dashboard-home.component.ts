@@ -1,23 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChartType } from 'angular-google-charts';
 import { ProjectService } from '../../../../services/project.service';
-import { DashDialogComponent } from '../../core/dash-content/dash-dialog/dash-dialog.component';
 
 @Component({
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
   styleUrls: ['./dashboard-home.component.css'],
-  providers: [
-    {
-      provide: 'SERVICE',
-      useFactory: () => ({
-        dialogReferencedComponent: DashDialogComponent,
-        dataService: inject(ProjectService),
-        title: 'Projects'
-      }),
-    },
-  ],
 })
 export class DashboardHomeComponent {
   chartData: any;

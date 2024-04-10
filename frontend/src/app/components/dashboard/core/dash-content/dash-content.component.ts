@@ -1,8 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs'; 
 import { Project } from '../../../../models/project.model';
+import { ProjectService } from '../../../../services/project.service';
+import { DashDialogComponent } from './dash-dialog/dash-dialog.component';
+import { Ticket } from '../../../../models/ticket.model';
 
 @Component({
   selector: 'app-dash-con',
@@ -10,40 +12,56 @@ import { Project } from '../../../../models/project.model';
   styleUrls: ['./dash-content.component.css'],
 })
 export class DashContentComponent implements OnInit {
- 
+  @Input()
   title: string = '';
-  dataSource: Subject<Project[]> = new Subject();
+  dataSource: ReplaySubject<Project[] | Ticket[]> = new ReplaySubject(1);
   dataSource$ = this.dataSource.asObservable();
 
+  @Input()
+  activeFunctionName!: string;
+
+  cbFetchingArray: any = {
+    projects: (page: number = 0, size: number = 5): void => {
+      this._projectService.getRealTimeProjects(page, size).subscribe({
+        next: (response: any) => {
+          this.dataSource.next(response.content);
+        },
+        error: (_: any) => {
+          window.alert('Cannot fetch data from API');
+        },
+      });
+    },
+    tickets: (page: number = 0, size: number = 5): void => {
+      const tickets: Ticket[] = [
+        new Ticket("Adrian", "Test"),
+        new Ticket("John", "Issue"),
+      ];
+      this.dataSource.next(tickets);
+    },
+  };
+
+  dialogComponents: any = {
+    projects: DashDialogComponent,
+    tickets: DashDialogComponent,
+  };
+
   constructor(
-    @Inject('SERVICE') public service: any,
+    private _projectService: ProjectService,
     private dialog: MatDialog
-  ) {
-    this.title = this.service.title;
-  }
+  ) {}
 
-  ngOnInit(): void {
-    this.fetchProjects();
-  }
-
-  fetchProjects(page: number = 0, size: number = 5): void {
-    this.service.dataService.getRealTimeProjects(page, size).subscribe({
-      next: (response: any) => {
-        this.dataSource.next(response.content);
-      },
-      error: (error: any) => {
-        console.error('Error fetching data from API:', error);
-        window.alert('Cannot fetch data from API');
-      },
-    });
-  }
-
-  onChangePage(event: PageEvent): void {
-    this.fetchProjects(event.pageIndex, event.pageSize);
+  ngOnInit() {
+    const activeFunction = this.cbFetchingArray[this.activeFunctionName];
+    if (activeFunction) {
+      activeFunction();
+    } else {
+      window.alert("Bad request")
+    }
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(this.service.dialogReferencedComponent);
+    const dialogComponent = this.dialogComponents[this.activeFunctionName];
+    const dialogRef = this.dialog.open(dialogComponent);
     dialogRef.afterClosed().subscribe();
   }
 }
