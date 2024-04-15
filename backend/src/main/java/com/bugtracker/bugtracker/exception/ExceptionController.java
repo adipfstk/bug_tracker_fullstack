@@ -1,6 +1,5 @@
 package com.bugtracker.bugtracker.exception;
 
-import com.bugtracker.bugtracker.exception.NoItemsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,11 +17,12 @@ public class ExceptionController {
                 .build();
         return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(NoProjectFoundException.class)
-    public ResponseEntity<ErrorObject> noItemsExceptionHandler(NoProjectFoundException noItemsException) {
+    public ResponseEntity<ErrorObject> noProjectExceptionHandler(NoProjectFoundException noProjectFoundException) {
         ErrorObject errorObject = ErrorObject
                 .builder()
-                .message(noItemsException.getMessage())
+                .message(noProjectFoundException.getMessage())
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .build();
         return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);

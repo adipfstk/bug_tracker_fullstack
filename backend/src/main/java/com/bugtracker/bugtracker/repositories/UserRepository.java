@@ -1,6 +1,8 @@
 package com.bugtracker.bugtracker.repositories;
 
 import com.bugtracker.bugtracker.models.user.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,4 +15,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(value = "SELECT * FROM users WHERE project_id IS NULL", nativeQuery = true)
     Optional<List<UserEntity>> findBenchUsers();
+
+    Page<UserEntity> findAllByProjectId(long id, Pageable pageable);
+
 }

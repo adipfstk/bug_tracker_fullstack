@@ -1,9 +1,10 @@
 package com.bugtracker.bugtracker.dto;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class UserDto {
     private String username;
     private String email;

@@ -3,15 +3,14 @@ import { Observable } from 'rxjs';
 import { Project } from '../../../../../models/project.model';
 import { Ticket } from '../../../../../models/ticket.model';
 import { Router } from '@angular/router';
-import { TicketDetails } from '../../../../../services/ticket.details.service';
-
+import { TicketService } from '../../../../../services/ticket.service';
 @Component({
   selector: 'app-dash-table',
   templateUrl: './dash-table.component.html',
   styleUrl: './dash-table.component.css',
 })
 export class DashTableComponent implements OnInit {
-  constructor(private readonly router: Router, private readonly _ticketDetailsOptionService: TicketDetails) {}
+  constructor(private readonly router: Router, private readonly _ticketService: TicketService) {}
   ngOnInit(): void {
     this.dataSource.subscribe((next) => {
       next.forEach((item) => (this.displayedColumns = Object.keys(item)));
@@ -27,7 +26,7 @@ export class DashTableComponent implements OnInit {
     }
 
     if ('title' in data) {
-      this._ticketDetailsOptionService.emitHideOption();
+      this._ticketService.sendHideOption();
     }
   }
 

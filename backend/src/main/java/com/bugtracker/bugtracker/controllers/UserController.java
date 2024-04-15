@@ -34,6 +34,7 @@ public class UserController {
 
     @GetMapping("/benchUsers")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @CrossOrigin(origins = "http://localhost:4200")
     ResponseEntity<List<UserDto>> getAvailableUsers() {
         return ResponseEntity.ok(this.userService.getAvailableUsers());
     }
