@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserGuard } from './guards/user.guard';
 import { DashboardProjectComponent } from './components/dashboard/pages/dashboard-project/dashboard-project.component';
 import { DashboardHomeComponent } from './components/dashboard/pages/dashboard-home/dashboard-home.component';
+import { ProjectGuard } from './guards/project.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       {
         path: 'project',
         component: DashboardProjectComponent,
+        canActivate : [ProjectGuard]
       },
       {
         path: '',

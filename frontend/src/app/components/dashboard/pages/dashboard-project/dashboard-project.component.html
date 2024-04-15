@@ -1,11 +1,17 @@
 <div class="flex-container">
   <div class="row-1">
     <div class="col-1">
-      <app-dash-con [activeFunctionName]="'tickets'" [title]="'Project'"></app-dash-con>
+      <app-dash-con [activeFunctionName]="'users'" [title]="'Team'"></app-dash-con>
     </div>
     <div class="col-2">
       <app-dash-con [activeFunctionName]="'tickets'" [title]="'Tickets'"></app-dash-con>
     </div>
   </div>
-  <div class="row-2"></div>
+  <div class="row-2">
+    <mat-card *ngIf="this.hide">
+      <mat-card-content>
+        <p>Merge</p>     
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

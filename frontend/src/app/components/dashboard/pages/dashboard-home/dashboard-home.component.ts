@@ -10,6 +10,7 @@ import { ProjectService } from '../../../../services/project.service';
 })
 export class DashboardHomeComponent {
   chartData: any;
+  redirectOption: boolean = true;
 
   constructor(public dialog: MatDialog, public projectService: ProjectService) {
     this.chartData = Array.from({ length: 3 }, () =>

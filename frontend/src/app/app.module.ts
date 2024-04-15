@@ -42,6 +42,8 @@ import { ButtonComponent } from './components/dashboard/core/dash-content/button
 import { DashDialogComponent } from './components/dashboard/core/dash-content/dash-dialog/dash-dialog.component';
 import { DashStatsComponent } from './components/dashboard/pages/dashboard-home/dash-stats/dash-stats.component';
 import { DashTableComponent } from './components/dashboard/core/dash-content/dash-table/dash-table.component';
+import { ProjectGuard } from './guards/project.guard';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +85,7 @@ import { DashTableComponent } from './components/dashboard/core/dash-content/das
     MatMenuModule,
     MatDialogModule,
     ScrollingModule,
-    MatListModule
+    MatListModule,    
   ],
   providers: [
     provideAnimationsAsync(),
@@ -94,7 +96,8 @@ import { DashTableComponent } from './components/dashboard/core/dash-content/das
     },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
-    UserGuard
+    UserGuard, 
+    ProjectGuard
 
   ],
   bootstrap: [AppComponent],

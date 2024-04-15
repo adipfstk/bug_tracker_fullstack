@@ -1,3 +1,9 @@
 export class Ticket {
-  constructor(public name: string, public description: string) {}
+  public type!: string;
+  public title!:string;
+  public description!:string;
+  public status!:string;
+  public priority!:string;
+  public user!:string;
+  public project!:string;
 }

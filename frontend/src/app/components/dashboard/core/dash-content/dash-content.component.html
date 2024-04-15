@@ -6,9 +6,9 @@
       </div>
 
       <div>
-        <button ngClass="green"
+        <button
+          class="button-custom"
           mat-raised-button
-          class="add-button"
           (click)="this.openDialog()"
         >
           Add Proj
@@ -18,8 +18,15 @@
 
     <div class="page-data">
       <app-dash-table [dataSource]="this.dataSource$"></app-dash-table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10]"
+        [length]="totalPages"
+        showFirstLastButtons
+        aria-label="Select page"
+        (page)="setPageConfiguration($event)"
+      >
+      </mat-paginator>
     </div>
-
-
   </mat-card-content>
 </mat-card>
