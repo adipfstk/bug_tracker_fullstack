@@ -17,11 +17,13 @@
     </div>
 
     <div class="page-data">
-      <app-dash-table [dataSource]="this.dataSource$"></app-dash-table>
-
+      <ng-container *ngIf="dataContainer">
+        <app-dash-table [tableData]="dataContainer" [displayedColumns]="columnContainer"></app-dash-table>
+      </ng-container>
+      
       <mat-paginator
         [pageSizeOptions]="[5, 10]"
-        [length]="totalPages"
+        [length]="this.totalPages"
         showFirstLastButtons
         aria-label="Select page"
         (page)="setPageConfiguration($event)"

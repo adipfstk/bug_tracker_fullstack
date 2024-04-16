@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../../../services/ticket.service';
+import { Ticket } from '../../../../models/ticket.model';
 
 @Component({
   selector: 'app-dashboard-project',
@@ -7,10 +8,12 @@ import { TicketService } from '../../../../services/ticket.service';
   styleUrl: './dashboard-project.component.css',
 })
 export class DashboardProjectComponent implements OnInit {
-  constructor(private readonly _ticketService: TicketService) {}
+  constructor(
+    private readonly _ticketService: TicketService
+  ) {}
   ngOnInit(): void {
-    this._ticketService.hideOption$.subscribe((next) => (this.hide = next));
+    this._ticketService.fullTicket$.subscribe((next) => (this.data = next));
   }
 
-  hide!: boolean;
+  data!: Ticket;
 }

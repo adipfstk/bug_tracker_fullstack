@@ -1,14 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ReplaySubject } from 'rxjs';
-import { Project } from '../../../../models/project.model';
-import { ProjectService } from '../../../../services/project.service';
-import { DashDialogComponent } from './dash-dialog/dash-dialog.component';
-import { Ticket } from '../../../../models/ticket.model';
-import { PageEvent } from '@angular/material/paginator';
-import { UserService } from '../../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
+
+import { Project } from '../../../../models/project.model';
+import { Ticket } from '../../../../models/ticket.model';
+import User from '../../../../models/user.model';
+
+import { ProjectService } from '../../../../services/project.service';
+import { UserService } from '../../../../services/user.service';
 import { TicketService } from '../../../../services/ticket.service';
+
+import { DashDialogComponent } from './dash-dialog/dash-dialog.component';
 
 @Component({
   selector: 'app-dash-con',
@@ -16,45 +20,38 @@ import { TicketService } from '../../../../services/ticket.service';
   styleUrls: ['./dash-content.component.css'],
 })
 export class DashContentComponent implements OnInit {
-  @Input()
-  title: string = '';
-  dataSource: ReplaySubject<Project[] | Ticket[]> = new ReplaySubject(1);
-  dataSource$ = this.dataSource.asObservable();
+  @Input() title!: string;
+  @Input() activeFunctionName!: string;
 
-  page!: number;
-  size!: number;
-
+  page: number = 0;
+  size: number = 5;
+  
   totalPages!: number;
-  fullTicket!: Ticket;
-
-  @Input()
-  activeFunctionName!: string;
+  dataContainer!: MatTableDataSource<Ticket[] | Project[] | User[]>;
+  columnContainer!: string[];
 
   cbFetchingArray: any = {
     projects: (): void => {
       this._projectService.getRealTimeProjects(this.page, this.size).subscribe({
         next: (response: any) => {
-          this.dataSource.next(response.content);
-          this.totalPages = response.totalPages;
+          this.setData(response);
         },
         error: (_: any) => {
           window.alert('Cannot fetch data from API');
         },
       });
     },
+
     tickets: (): void => {
       this.route.queryParams.subscribe((next) =>
         this._ticketService
           .getTickets(next['projectName'], next['number'], next['size'])
           .subscribe({
             next: (response: any) => {
-              this.fullTicket = response.content;
-              const mappedContent = response.content.map((item: Ticket) => ({
-                title: item.title,
-                description: item.description,
-              }));
-              this.dataSource.next(mappedContent);
-              this.totalPages = response.totalPages;
+              this.setData(response);
+            },
+            error: (_: any) => {
+              window.alert('Cannot fetch data from API');
             },
           })
       );
@@ -70,8 +67,10 @@ export class DashContentComponent implements OnInit {
           )
           .subscribe({
             next: (response: any) => {
-              this.dataSource.next(response.content);
-              this.totalPages = response.totalPages;
+              this.setData(response);
+            },
+            error: (_: any) => {
+              window.alert('Cannot fetch data from API');
             },
           })
       );
@@ -91,10 +90,7 @@ export class DashContentComponent implements OnInit {
     private _ticketService: TicketService
   ) {}
 
-  ngOnInit() {
-    this.page = 0;
-    this.size = 5;
-
+  ngOnInit(): void {
     const activeFunction = this.cbFetchingArray[this.activeFunctionName];
     if (activeFunction) {
       activeFunction();
@@ -103,15 +99,20 @@ export class DashContentComponent implements OnInit {
     }
   }
 
-  openDialog() {
+  openDialog(): void {
     const dialogComponent = this.dialogComponents[this.activeFunctionName];
     const dialogRef = this._dialog.open(dialogComponent);
     dialogRef.afterClosed().subscribe();
   }
 
-  setPageConfiguration(event: PageEvent) {
-    console.log(event);
+  setPageConfiguration(event: PageEvent): void {
     this.page = event.pageIndex;
     this.size = event.pageSize;
+  }
+
+  setData(response: any): void {
+    this.dataContainer = response.content;
+    this.totalPages = response.totalPages;
+    this.columnContainer = Object.keys(response.content[0]).slice(0, 3);
   }
 }

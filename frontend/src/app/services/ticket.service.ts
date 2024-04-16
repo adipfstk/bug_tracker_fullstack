@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Ticket } from '../models/ticket.model';
 
 @Injectable({
     providedIn: 'root'
@@ -18,10 +19,11 @@ export class TicketService {
     });
   }
 
-  public hideOption: Subject<boolean> = new Subject();
-  public hideOption$ = this.hideOption.asObservable();
+  fullTicket: Subject<Ticket>  = new Subject();
+  fullTicket$ = this.fullTicket.asObservable();
 
-  public sendHideOption() {
-    this.hideOption.next(true);
+  sendData(ticket: Ticket) {
+      this.fullTicket.next(ticket);
   }
+  
 }
