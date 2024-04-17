@@ -1,0 +1,14 @@
+<div class="content">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <mat-tab-group (selectedIndexChange)="tabChanged($event)">
+        <mat-tab label="Login">
+          <router-outlet></router-outlet>
+        </mat-tab>
+        <mat-tab label="Register">
+          <router-outlet></router-outlet>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,21 @@
+<div class="main-column">
+  <div class="side-top">
+    <img src="/assets/bug_track_logo.png" alt="logo" height="100" width="200"/>
+  </div>
+  <div class="side-content">
+    <div
+      class="button-container"
+      *ngIf="this.buttons"
+    >
+      <app-dash-button
+        *ngFor="let item of this.buttons | keyvalue"
+        [buttonData]="[item.key, item.value]"
+      ></app-dash-button>
+    </div>
+  </div>
+  <div class="side-bottom">
+    <button mat-raised-button color="warn" (click)="this.onLogout()">
+      Log out
+    </button>
+  </div>
+</div>

@@ -1,37 +1,40 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserGuard } from './guards/user.guard';
-import { DashboardProjectComponent } from './components/dashboard/pages/dashboard-project/dashboard-project.component';
-import { DashboardHomeComponent } from './components/dashboard/pages/dashboard-home/dashboard-home.component';
-import { ProjectGuard } from './guards/project.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthLayoutComponent} from "./layout/auth-layout/auth.component";
+import {ContentLayoutComponent} from "./layout/content-layout/content-layout.component";
+import {UserGuard} from "./core/guards/user.guard";
+
 
 const routes: Routes = [
+
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [UserGuard],
+    path: '',
+    component: AuthLayoutComponent,
     children: [
       {
-        path: 'project',
-        component: DashboardProjectComponent,
-        canActivate : [ProjectGuard]
-      },
-      {
         path: '',
-        component: DashboardHomeComponent,
+        loadChildren: () =>
+          import('./modules/auth/auth.module').then(m => m.AuthModule)
       },
-    ],
+    ]
   },
   {
     path: '',
-    component: LoginComponent,
-  },
+    component: ContentLayoutComponent,
+    canActivate: [UserGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
+      }
+    ]
+  }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

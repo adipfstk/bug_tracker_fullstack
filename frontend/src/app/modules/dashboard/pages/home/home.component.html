@@ -1,0 +1,16 @@
+<div class="flex-container">
+  <div class="row-1">
+    <div class="col-1">
+      <dash-content [activeFunctionName]="'projects'" [title] = "'Projects'"></dash-content>
+    </div>
+  </div>
+</div>
+
+<div class="flex-container-sec">
+  <div class="row-1">
+    <div class="col-sec-1">
+      <dash-stats *ngFor="let statData of this.chartData" [stat]="statData">
+      </dash-stats>
+    </div>
+  </div>
+</div>
