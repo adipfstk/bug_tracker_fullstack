@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="formData" (ngSubmit)="submitHandler()">
+      <div class="flex-container">
+        <!--Ticket Title-->
+        <mat-form-field class="row">
+          <mat-label>Ticket Title</mat-label>
+          <input
+            matInput
+            placeholder="Ex. Title bug"
+            value=""
+            formControlName="name"
+          />
+        </mat-form-field>
+
+        <!--Ticket Details-->
+        <mat-form-field class="row">
+          <mat-label>Ticket Details</mat-label>
+          <input
+            matInput
+            placeholder="Ex. A title bug description"
+            value="Sushi"
+            formControlName="description"
+          />
+        </mat-form-field>
+
+        <!--Ticket Available Users To Assign-->
+        <mat-form-field class="row" *ngFor="let item of selectableFields">
+          <mat-label>{{ item }}</mat-label>
+          <mat-select matNativeControl required [formControlName] = "item">
+            <mat-option
+              *ngFor="let option of getOptions(item)"
+              [value]="option"
+            >
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--Available Users To Assign-->
+        <mat-selection-list
+          #selectedUsers
+          class="users-box"
+          formControlName="assignedUsers"
+        >
+          <mat-list-option
+            *ngFor="let user of this.users"
+            [value]="user.username"
+            multiple
+          >
+            {{ user.username }}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+
+      <div class="submit-center">
+        <button mat-raised-button color="primary">Submit</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

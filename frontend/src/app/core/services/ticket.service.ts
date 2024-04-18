@@ -14,12 +14,12 @@ export class TicketService {
   constructor(private readonly _httpClient: HttpClient) {
   }
 
-  getTickets(projectName: string, page: number = 0, size: number = 5): Observable<Ticket> {
+  getTickets(projectName: string, page: number = 0, size: number = 5) {
     const params: HttpParams = new HttpParams()
       .set('projectName', projectName)
       .set('page', page)
       .set('size', size);
-    return this._httpClient.get<Ticket>(`${environment.apiUrl}/project-tickets`, {
+    return this._httpClient.get(`${environment.apiUrl}/project-tickets`, {
       params: params,
     });
   }

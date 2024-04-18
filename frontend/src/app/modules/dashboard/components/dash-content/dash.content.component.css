@@ -1,17 +1,19 @@
-.data {
-  width: max-content;
-}
-
-.button-custom {
-  background-color: #00DE9D;
-  font-size: small;
-  color: white;
-  min-width: 100px;
-}
-
 .top {
-  display: grid;
-  grid-template-columns: 16fr 1fr;
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
 }
+
+.content {
+  width: 100%;
+}
+
+.element:hover {
+  background-color: rgb(243, 243, 243);
+  cursor: pointer;
+}
+
+.element:active {
+  background-color: rgb(227, 227, 227);
+  cursor: pointer;
+}
+

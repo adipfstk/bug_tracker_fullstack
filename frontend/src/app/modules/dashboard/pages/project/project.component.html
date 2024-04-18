@@ -1,24 +1,20 @@
 <div class="flex-container">
   <div class="row-1">
-    <div class="col-1">
-      <dash-content
-        [activeFunctionName]="'users'"
-        [title]="'Team'"
-      ></dash-content>
+    <div class="col">
+      <dash-content [title]="'Members'"></dash-content>
     </div>
-    <div class="col-2">
-      <dash-content
-        [activeFunctionName]="'tickets'"
-        [title]="'Tickets'"
-      ></dash-content>
+    <div class="col">
+      <dash-content [title]="'Tickets'"></dash-content>
     </div>
   </div>
   <div class="row-2">
     <mat-card *ngIf="data" class="content">
-      <mat-card-content class = "grid-container">
-        <div class="col" *ngFor="let item of data | keyvalue;">
-          <p><b>{{item.key}}</b></p>
-          <p>{{item.value}}</p>
+      <mat-card-content class="grid-container">
+        <div class="column" *ngFor="let item of data | keyvalue">
+          <p>
+            <b>{{ item.key }}</b>
+          </p>
+          <p>{{ item.value }}</p>
         </div>
       </mat-card-content>
     </mat-card>

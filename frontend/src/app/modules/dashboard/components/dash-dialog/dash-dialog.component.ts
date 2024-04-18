@@ -29,7 +29,7 @@ export class DashDialogComponent implements OnInit {
     });
   }
 
-  foo() {
+  submitHandler() {
     this._projectService.postNewProject(this.formData.value).subscribe(_=>
       this._projectService
       .refreshData$.next(true)

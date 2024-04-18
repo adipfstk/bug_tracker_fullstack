@@ -8,12 +8,6 @@
   width: 100%;
 }
 
-.form-content {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
 
 .scrollable-list {
     overflow-y: auto;

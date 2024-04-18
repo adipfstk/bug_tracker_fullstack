@@ -1,8 +1,0 @@
-.element:hover {
-    background-color: rgb(243, 243, 243);
-    cursor: pointer;
-}
-.element:active {
-    background-color: rgb(216, 214, 214);
-
-}

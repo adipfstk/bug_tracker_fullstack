@@ -5,30 +5,109 @@
         <h2>{{ title }}</h2>
       </div>
 
-      <div>
+      <div *ngIf="title == 'Project'">
         <button
           class="button-custom"
           mat-raised-button
-          (click)="this.openDialog()"
+          (click)="projectButtonHandler()"
         >
-          Add Proj
+          {{ "Add " + title }}
+        </button>
+      </div>
+
+      <div *ngIf="title == 'Tickets'">
+        <button
+          class="button-custom"
+          mat-raised-button
+          (click)="ticketButtonHandler()"
+        >
+          {{ "Add " + title }}
+        </button>
+      </div>
+      
+      <div *ngIf="title == 'Members'">
+        <button
+          class="button-custom"
+          mat-raised-button
+          (click)="ticketButtonHandler()"
+        >
+          {{ "Add " + title }}
         </button>
       </div>
     </div>
 
-    <div class="page-data">
-      <ng-container *ngIf="dataContainer">
-        <dash-table [tableData]="dataContainer" [displayedColumns]="columnContainer"></dash-table>
-      </ng-container>
-      
-      <mat-paginator
-        [pageSizeOptions]="[5, 10]"
-        [length]="this.totalPages"
-        showFirstLastButtons
-        aria-label="Select page"
-        (page)="setPageConfiguration($event)"
-      >
-      </mat-paginator>
-    </div>
+    <!-- Display project data table -->
+    <ng-container *ngIf="projectData && projectData.length > 0">
+      <table mat-table [dataSource]="projectData">
+        <!-- Define columns -->
+        <ng-container
+          *ngFor="let column of projectColumns"
+          [matColumnDef]="column"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+
+        <!-- Define header row -->
+        <tr mat-header-row *matHeaderRowDef="projectColumns"></tr>
+
+        <!-- Define data rows -->
+        <tr
+          mat-row
+          *matRowDef="let row; columns: projectColumns"
+          class="element"
+          (click)="projectClickHandler(row)"
+        ></tr>
+      </table>
+    </ng-container>
+
+    <!-- Display ticket data table -->
+    <ng-container *ngIf="ticketData && ticketData.length > 0">
+      <table mat-table [dataSource]="ticketData">
+        <!-- Define columns -->
+        <ng-container
+          *ngFor="let column of ticketColumns"
+          [matColumnDef]="column"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+
+        <!-- Define header row -->
+        <tr mat-header-row *matHeaderRowDef="ticketColumns"></tr>
+
+        <!-- Define data rows -->
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ticketColumns"
+          class="element"
+          (click)="ticketClickHandler(row)"
+        ></tr>
+      </table>
+    </ng-container>
+
+    <!-- Display members data table -->
+    <ng-container *ngIf="membersData && membersData.length > 0">
+      <table mat-table [dataSource]="membersData">
+        <!-- Define columns -->
+        <ng-container
+          *ngFor="let column of membersColumns"
+          [matColumnDef]="column"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+
+        <!-- Define header row -->
+        <tr mat-header-row *matHeaderRowDef="membersColumns"></tr>
+
+        <!-- Define data rows -->
+        <tr
+          mat-row
+          *matRowDef="let row; columns: membersColumns"
+          class="element"
+        ></tr>
+      </table>
+    </ng-container>
   </mat-card-content>
 </mat-card>

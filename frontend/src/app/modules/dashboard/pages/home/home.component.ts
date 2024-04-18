@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
 import {ChartType} from 'angular-google-charts';
+import { DataService } from '../../../../core/services/data.service';
+import { Project } from '../../../../core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'dashboard-home',
@@ -9,13 +11,18 @@ import {ChartType} from 'angular-google-charts';
 })
 export class HomeComponent implements OnInit {
   chartData: any;
-  constructor(public dialog: MatDialog) {
+  projectData!: MatTableDataSource<Project[]>;
+  constructor(private dataService: DataService ) {
   }
+
   ngOnInit(): void {
     this.chartData = Array.from({length: 3}, () =>
       this.getDefaultChartData()
     );
+
+    this.dataService.projects().subscribe(projectData=> this.projectData=projectData);
   }
+
   private getDefaultChartData(): any {
     return {
       title: 'Changing Chart',

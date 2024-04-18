@@ -1,15 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
-
-import {DashDialogComponent} from "../dash-dialog/dash-dialog.component";
-import { Ticket } from '../../../../core/models/ticket.model';
-import { Project } from '../../../../core/models/project.model';
+import { DataService } from '../../../../core/services/data.service';
+import { Project, Ticket, TicketService } from '../../../../core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import User from '../../../../core/models/user.model';
-import { ProjectService, TicketService, UserService } from '../../../../core';
+import { Dialog } from '@angular/cdk/dialog';
+import { DashDialogComponent } from '../dash-dialog/dash-dialog.component';
+import { TicketDialogComponent } from '../ticket-dialog/ticket-dialog.component';
 
+enum ContentTitle {
+  Projects = 'Projects',
+  Tickets = 'Tickets',
+  Members = 'Members',
+}
+
+const FIRST_INDEX = 0;
+const SEARCHED_PARAM = 'projectName';
 
 @Component({
   selector: 'dash-content',
@@ -18,98 +23,106 @@ import { ProjectService, TicketService, UserService } from '../../../../core';
 })
 export class DashContentComponent implements OnInit {
   @Input() title!: string;
-  @Input() activeFunctionName!: string;
 
-  page: number = 0;
-  size: number = 5;
+  projectData: Project[] = [];
+  ticketData: Ticket[] = [];
+  membersData: User[] = [];
 
-  totalPages!: number;
-  dataContainer!: MatTableDataSource<Ticket[] | Project[] | User[]>;
-  columnContainer!: string[];
+  projectColumns: string[] = [];
+  ticketColumns: string[] = [];
+  membersColumns: string[] = [];
 
-  cbFetchingArray: any = {
-    projects: (): void => {
-      this._projectService.getRealTimeProjects(this.page, this.size).subscribe({
-        next: (response: any) => {
-          this.setData(response);
-        },
-        error: (_: any) => {
-          window.alert('Cannot fetch data from API');
-        },
-      });
-    },
+  page!: number;
+  size!: number;
 
-    tickets: (): void => {
-      this.route.queryParams.subscribe((next) =>
-        this._ticketService
-          .getTickets(next['projectName'], next['number'], next['size'])
-          .subscribe({
-            next: (response: any) => {
-              this.setData(response);
-            },
-            error: (_: any) => {
-              window.alert('Cannot fetch data from API');
-            },
-          })
-      );
-    },
+  projectName!: string;
 
-    users: (): void => {
-      this.route.queryParams.subscribe((next) =>
-        this._userService
-          .getUsersByProjectName(
-            next['projectName'],
-            next['number'],
-            next['size']
-          )
-          .subscribe({
-            next: (response: any) => {
-              this.setData(response);
-            },
-            error: (_: any) => {
-              window.alert('Cannot fetch data from API');
-            },
-          })
-      );
-    },
-  };
-
-  dialogComponents: any = {
-    projects: DashDialogComponent,
-    tickets: DashDialogComponent,
-  };
+  private readonly MAX_COL_NO = 3;
+  private readonly MIN_COL_NO = 0;
 
   constructor(
-    private _projectService: ProjectService,
-    private _userService: UserService,
-    private _dialog: MatDialog,
-    private route: ActivatedRoute,
-    private _ticketService: TicketService
+    private _dataService: DataService,
+    private _ticketService: TicketService,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private dialog: Dialog
   ) {}
 
   ngOnInit(): void {
-    const activeFunction = this.cbFetchingArray[this.activeFunctionName];
-    if (activeFunction) {
-      activeFunction();
+    this.setProjectName();
+    this.selectDataFetcher();
+  }
+
+  private fetchProjects(): void {
+    this._dataService.projects().subscribe((paginatedProjects) => {
+      this.setData(this.projectData, this.projectColumns, paginatedProjects);
+      console.log(this.projectData);
+    });
+  }
+
+  private fetchTickets(): void {
+    this._dataService
+      .tickets(this.projectName)
+      .subscribe((paginatedTickets: any) => {
+        this.setData(this.ticketData, this.ticketColumns, paginatedTickets);
+      });
+  }
+
+  private fetchMembers(): void {
+    this._dataService
+      .members(this.projectName)
+      .subscribe((paginatedMembers: any) => {
+        this.setData(this.membersData, this.membersColumns, paginatedMembers);
+      });
+  }
+
+  private setData(
+    tableData: Project[] | Ticket[] | User[],
+    displayedColumns: string[],
+    paginatedData: any
+  ) {
+    tableData.push(...paginatedData.content);
+    const keys: any[] = Object.keys(tableData[FIRST_INDEX]).slice(
+      this.MIN_COL_NO,
+      this.MAX_COL_NO
+    );
+
+    displayedColumns.push(...keys);
+  }
+
+  private setProjectName() {
+    this.activeRoute.queryParams.subscribe((params) => {
+      this.projectName = params[SEARCHED_PARAM];
+    });
+  }
+
+  private selectDataFetcher() {
+    if (this.title == ContentTitle.Projects) {
+      this.fetchProjects();
+    } else if (this.title == ContentTitle.Tickets) {
+      this.fetchTickets();
     } else {
-      window.alert('Bad request');
+      this.fetchMembers();
     }
   }
 
-  openDialog(): void {
-    const dialogComponent = this.dialogComponents[this.activeFunctionName];
-    const dialogRef = this._dialog.open(dialogComponent);
-    dialogRef.afterClosed().subscribe();
+  projectClickHandler(row: Project) {
+    const params: Params = { projectName: row.name };
+    this.router.navigate(['project'], {
+      relativeTo: this.activeRoute.parent,
+      queryParams: params,
+    });
   }
 
-  setPageConfiguration(event: PageEvent): void {
-    this.page = event.pageIndex;
-    this.size = event.pageSize;
+  ticketClickHandler(row: Ticket) {
+    this._ticketService.sendData(row);
   }
 
-  setData(response: any): void {
-    this.dataContainer = response.content;
-    this.totalPages = response.totalPages;
-    this.columnContainer = Object.keys(response.content[0]).slice(0, 3);
+  projectButtonHandler() {
+    this.dialog.open(DashDialogComponent)
+  }
+
+  ticketButtonHandler() {
+    this.dialog.open(TicketDialogComponent)
   }
 }
